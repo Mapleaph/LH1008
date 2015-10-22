@@ -1,0 +1,63 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="C:\1008\LGT-1008DSP\LH1111_22V2\LH1111_22\"
+ProjectType=Executable
+CPUFamily=TMS320C67XX
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Tool="Linker"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="boot_c671x_2.s62"
+Source="c6713_emif.s62"
+Source="csl6713.lib"
+Source="emif.c"
+Source="flash.c"
+Source="LH_1008.h"
+Source="LIBCAN.C"
+Source="libCom.c"
+Source="LIBCRT.C"
+Source="libgps.c"
+Source="libim.c"
+Source="main.c"
+Source="pll.c"
+Source="pt.h"
+Source="rts6700.lib"
+Source="timer.c"
+Source="vecs.asm"
+Source="lk.cmd"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"C:\1008\LGT-1008DSP\LH1111_22V2\LH1111_22\Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700
+
+["Compiler" Settings: "Release"]
+Options=-o3 -fr"C:\1008\LGT-1008DSP\LH1111_22V2\LH1111_22\Release" -mv6700
+
+["DspBiosBuilder" Settings: "Debug"]
+Options=-v6x
+
+["DspBiosBuilder" Settings: "Release"]
+Options=-v6x
+
+["Linker" Settings: "Debug"]
+Options=-c -m".\Debug\LH1111.map" -o".\Debug\LH1111.out" -w -x
+
+["Linker" Settings: "Release"]
+Options=-c -m".\Release\LH1111.map" -o".\Release\LH1111.out" -w -x
+
+["LH_1008.h" Settings: "Debug"]
+ExcludeFromBuild=true
+
+["LH_1008.h" Settings: "Release"]
+ExcludeFromBuild=true
+
+["pt.h" Settings: "Debug"]
+ExcludeFromBuild=true
+
+["pt.h" Settings: "Release"]
+ExcludeFromBuild=true
+

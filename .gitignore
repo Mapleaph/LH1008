@@ -1,0 +1,8 @@
+/.settings/
+*.DS_Store
+/.ccsproject
+/.cproject
+/.project
+/EmulatorResetTemp.wks
+/Debug/
+/LH1111.CS_/

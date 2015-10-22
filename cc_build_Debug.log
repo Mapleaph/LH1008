@@ -1,0 +1,110 @@
+-----------------------------  LH1111.pjt - Debug  -----------------------------
+[boot_c671x_2.s62] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "boot_c671x_2.s62"
+
+[c6713_emif.s62] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "c6713_emif.s62"
+
+[emif.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "emif.c"
+
+[flash.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "flash.c"
+"flash.c", line 57: warning: missing return statement at end of non-void function "Flash_Chip_Erase"
+"flash.c", line 72: warning: conversion from integer to smaller pointer
+
+[LIBCAN.C] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "LIBCAN.C"
+"libcan.h", line 72: warning: last line of file ends without a newline
+"LIBCAN.C", line 12: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 17: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 23: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 28: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 33: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 38: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 43: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 48: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 53: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 58: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 63: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 68: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 73: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 78: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 83: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 88: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 93: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 98: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 114: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 122: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 132: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 139: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 156: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 165: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 171: warning: conversion from integer to smaller pointer
+"LIBCAN.C", line 183: warning: last line of file ends without a newline
+"LIBCAN.C", line 151: warning: variable "mode" was declared but never referenced
+
+[libCom.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "libCom.c"
+"libCom.c", line 8: warning: conversion from integer to smaller pointer
+"libCom.c", line 20: warning: conversion from integer to smaller pointer
+"libCom.c", line 48: warning: conversion from integer to smaller pointer
+"libCom.c", line 35: warning: variable "fifosize" was declared but never referenced
+
+[LIBCRT.C] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "LIBCRT.C"
+
+[libgps.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "libgps.c"
+"libgps.c", line 90: warning: variable "buf" is used before its value is set
+"libgps.c", line 103: warning: return value type does not match the function type
+"libgps.c", line 107: warning: missing return statement at end of non-void function "get_gps_data"
+"libgps.c", line 66: warning: variable "i" was declared but never referenced
+
+[libim.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "libim.c"
+
+[main.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "main.c"
+"main.c", line 97: warning: variable "tmptest" was declared but never referenced
+"main.c", line 97: warning: variable "testram" was declared but never referenced
+"main.c", line 99: warning: variable "i" was declared but never referenced
+"main.c", line 99: warning: variable "INTtmp" was declared but never referenced
+"main.c", line 99: warning: variable "k" was declared but never referenced
+"main.c", line 99: warning: variable "temp" was declared but never referenced
+"main.c", line 99: warning: variable "status" was declared but never referenced
+"main.c", line 99: warning: variable "tmpword" was declared but never referenced
+"main.c", line 100: warning: variable "Dram_error" was declared but never referenced
+"main.c", line 101: warning: variable "DualRAM_Error" was declared but never referenced
+"main.c", line 682: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 715: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 741: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 742: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 743: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 744: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 779: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 811: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 838: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 839: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 840: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 841: warning: argument of type "unsigned char *" is incompatible with parameter of type "char *"
+"main.c", line 627: warning: variable "mode" was declared but never referenced
+"main.c", line 627: warning: variable "status" was declared but never referenced
+"main.c", line 638: warning: variable "ret" was declared but never referenced
+"main.c", line 867: warning: variable "j" was declared but never referenced
+"main.c", line 871: warning: variable "hex_str" was declared but never referenced
+"main.c", line 872: warning: variable "bin_str" was declared but never referenced
+"main.c", line 874: warning: variable "ret" was declared but never referenced
+"main.c", line 1167: warning: variable "j" was declared but never referenced
+"main.c", line 1325: warning: a value of type "char *" cannot be assigned to an entity of type "unsigned char *"
+"main.c", line 1344: warning: variable "fifosize" is used before its value is set
+"main.c", line 1318: warning: variable "str" was set but never used
+"main.c", line 1320: warning: variable "str2" was declared but never referenced
+"main.c", line 1516: warning: variable "checksum" is used before its value is set
+"main.c", line 1516: warning: variable "temp" is used before its value is set
+"main.c", line 1398: warning: variable "j" was declared but never referenced
+"main.c", line 1399: warning: variable "loopcount" was declared but never referenced
+"main.c", line 1400: warning: variable "ramflag" was declared but never referenced
+"main.c", line 1401: warning: variable "s" was declared but never referenced
+
+[pll.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "pll.c"
+
+[timer.c] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "timer.c"
+
+[vecs.asm] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -g -fr"C:/1008/LGT-1008DSP/LH1111_22V2/LH1111_22/Debug" -d"_DEBUG" -d"CHIP_6713" -mv6700 -@"Debug.lkf" "vecs.asm"
+
+[Linking...] "C:\CCStudio_v3.3\C6000\cgtools\bin\cl6x" -@"Debug.lkf"
+<Linking>
+
+Build Complete,
+  0 Errors, 78 Warnings, 0 Remarks.
