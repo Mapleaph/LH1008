@@ -2,16 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-int get_gps_data(unsigned char readbuf[]);
-char* get_gps_date(char* gps_data);
-char* get_gps_time(char* gps_data);
-void get_gps_latitude(char* gps_data, char* latitude[]);
-void get_gps_longitude(char* gps_data, char* longitude[]);
-double get_gps_spd(char* gps_data);
-double get_gps_cog(char* gps_data);
-
-int get_dec_part(double num);
-double get_frac_part(double num);
+#include "libgps.h"
 
 /*
 int main()
@@ -660,3 +651,130 @@ int get_gps_data(unsigned char readbuf[])
 
 	return 0;
 }
+
+void test_gps()
+{
+    int i, j, k=0;
+    int ret;
+    char* longitude[3];
+    char* latitude[3];
+    double spd = 0.0;
+    char spd_str[10];
+    double cog = 0.0;
+    char cog_str[10];
+    char* date;
+    char* time;
+
+    unsigned char gps_data[200];
+
+	sendtocom0("********************\n");
+	sendtocom0("GPS TEST BEGIN\n");
+	sendtocom0("********************\n\n");
+
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("Retriving GPS Data (3 Times)\n\n");
+
+    for (i=0; i<1000 && k<3; i++) {
+
+		ret = get_gps_data(gps_data);
+
+		if (ret == 1) {
+
+			k++;
+
+			// UTC
+			//lineBegin();
+			for (i=0; i<6; i++) sendtocom0(" ");
+			// the format is UTC: 2002-09-12 08:35:59
+
+			// get UTC date & time
+			date = get_gps_date(gps_data);
+			time = get_gps_time(gps_data);
+			sendtocom0("UTC is ");
+			sendtocom0(date);
+			sendtocom0(" ");
+			sendtocom0(time);
+			//lineEnd(6 + strlen(date) + strlen(time) + 8);
+			sendtocom0("\n");
+
+			// Longitude
+			//lineBegin();
+			for (i=0; i<6; i++) sendtocom0(" ");
+			// the format is Longitude: 8°33.915' E
+
+			get_gps_longitude(gps_data, longitude);
+			//printf("Longitude: %s°%s' %s", longitude[0], longitude[1], longitude[2]);
+			sendtocom0("Longitude: ");
+			sendtocom0(longitude[0]);
+			sendtocom0("D ");
+			sendtocom0(longitude[1]);
+			sendtocom0("M");
+			sendtocom0(" ");
+			sendtocom0(longitude[2]);
+			//lineEnd(14 + strlen(longitude[0]) + strlen(longitude[1]) + strlen(longitude[2]) + 6);
+			sendtocom0("\n");
+
+			// Latitude
+			//lineBegin();
+			for (i=0; i<6; i++) sendtocom0(" ");
+			// the format is Latitude: 47°17.114' N
+
+			// latitude
+			get_gps_latitude(gps_data, latitude);
+			//printf("Latitude: %s°%s' %s", latitude[0], latitude[1], latitude[2]);
+			sendtocom0("Latitude: ");
+			sendtocom0(latitude[0]);
+			sendtocom0("D ");
+			sendtocom0(latitude[1]);
+			sendtocom0("M");
+			sendtocom0(" ");
+			sendtocom0(latitude[2]);
+			//lineEnd(13 + strlen(latitude[0]) + strlen(latitude[1]) + strlen(latitude[2]) + 6);
+			sendtocom0("\n");
+
+			// speed over ground
+			//lineBegin();
+			for (i=0; i<6; i++) sendtocom0(" ");
+			// the format is SPD: 0.007 km/h
+
+			spd = get_gps_spd(gps_data) * 1.852;
+			sprintf(spd_str, "%.3f", spd);
+			//printf("SPD: %s km/h", spd_str);
+			sendtocom0("SPD: ");
+			sendtocom0(spd_str);
+			sendtocom0(" ");
+			sendtocom0("km/h");
+			//lineEnd(10 + strlen(spd_str) + 6);
+			sendtocom0("\n");
+
+			// course over ground
+			//lineBegin();
+			for (i=0; i<6; i++) sendtocom0(" ");
+			// the format is COG: 77.520
+
+			cog = get_gps_cog(gps_data);
+			sprintf(cog_str, "%.3f", cog);
+			//printf("COG: %s°", cog_str);
+			sendtocom0("COG: ");
+			sendtocom0(cog_str);
+			sendtocom0("D");
+			//lineEnd(6 + strlen(cog_str) + 6);
+			sendtocom0("\n\n");
+
+			//disp();
+
+		}
+
+		//for (j=0; j<20000000; j++)
+		//	;
+    }
+
+	//disp();
+	//dispfoot();
+
+    sendtocom0("********************\n");
+	sendtocom0("TEST END\n");
+	sendtocom0("********************\n\n");
+
+}
+

@@ -1,3 +1,6 @@
+#ifndef __LIBCAN_H__
+#define __LIBCAN_H__
+
 /*SJA1000 registers*/
 #define REG_MOD		0x00	/*mode register*/
 #define REG_CMR		0x01	/*command register*/
@@ -70,3 +73,15 @@
 
 #define IRQ_ALL		0xFF	/*enable all interrupts*/
 #define IRQ_OFF		0x00	/*disable all interrupts*/
+
+
+
+void initcan(unsigned long canAddr, unsigned long resetAddr, unsigned char btr0, unsigned char btr1);
+
+int sendtocan(unsigned long canAddr, unsigned char* buf);
+
+int recvfromcan(unsigned long canAddr, unsigned char* buf);
+
+void test_can();
+
+#endif

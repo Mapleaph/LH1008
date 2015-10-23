@@ -31,7 +31,7 @@ int Flash_Erase()
 	return 1;
 }
 
-int Flash_Chip_Erase()
+void Flash_Chip_Erase()
 {
 
 	unsigned long i;
@@ -113,5 +113,3 @@ void Flash_Readm(Uint32 addr,Uint16 *ptr,Uint32 length)
 /********************************************************************************\
 \* End of DEC6713_FLASH.C *\
 \********************************************************************************/
-
-

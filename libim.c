@@ -3,21 +3,79 @@
 #include <string.h>
 #include <math.h>
 #include "LH_1008.h"
+#include "libim.h"
 
-int get_im_data(unsigned int readbuf[]);
-long double get_im_accx(int* im_data);
-long double get_im_accy(int* im_data);
-long double get_im_accz(int* im_data);
-long double get_im_gyrx(int* im_data);
-long double get_im_gyry(int* im_data);
-long double get_im_gyrz(int* im_data);
-long double get_im_magx(int* im_data);
-long double get_im_magy(int* im_data);
-long double get_im_magz(int* im_data);
+void im_init()
+{
 
-long double ieee_to_decimal(char bin_str[]);
-char* hex_to_bin(char* hex_bin);
-int calc_im_cs(int buf[]);
+	int i;
+
+	unsigned char buf[16];
+
+	buf[0] = 0xFA;
+	buf[1] = 0xFF;
+	buf[2] = 0x30;
+	buf[3] = 0x00;
+	buf[4] = 0xD1;
+
+
+	//sendtocom(0xa005000, buf, 5);
+
+	buf[0] = 0xFA;
+	buf[1] = 0xFF;
+	buf[2] = 0xC0;
+	buf[3] = 0x0C;
+	buf[4] = 0x40;
+	buf[5] = 0x23;
+	buf[6] = 0x00;
+	buf[7] = 0x64;
+	buf[8] = 0x80;
+	buf[9] = 0x23;
+	buf[10] = 0x00;
+	buf[11] = 0x64;
+	buf[12] = 0xC0;
+	buf[13] = 0x23;
+	buf[14] = 0x00;
+	buf[15] = 0x64;
+
+	//sendtocom(0xa005000, buf, 16);
+
+	buf[0] = 0xFA;
+	buf[1] = 0xFF;
+	buf[2] = 0x10;
+	buf[3] = 0x00;
+	buf[4] = 0xF1;
+
+
+	sendtocom(0xa005000, buf, 5);
+
+	/*
+	*((unsigned char*)(0xa0050020)) = 0xFA;
+
+	for (i=0; i<300000; i++)
+		;
+
+	*((unsigned char*)(0xa0050020)) = 0xFF;
+
+	for (i=0; i<300000; i++)
+		;
+
+	*((unsigned char*)(0xa0050020)) = 0x10;
+
+	for (i=0; i<300000; i++)
+		;
+
+	*((unsigned char*)(0xa0050020)) = 0x00;
+
+	for (i=0; i<300000; i++)
+		;
+
+	*((unsigned char*)(0xa0050020)) = 0xF1;
+
+	for (i=0; i<300000; i++)
+		;
+*/
+}
 
 int calc_im_cs(int buf[])
 {
@@ -842,3 +900,164 @@ char* hex_to_bin(char* hex_str)
 
 	return bin_str;
 }
+
+void test_im()
+{
+    int i, j, k = 0;
+
+    unsigned int buf[84]; // the size of the container is 84
+
+    long double ret;
+    long double accx, gyrx, magx;
+    char accx_str[10], gyrx_str[10], magx_str[10];
+    long double accy, gyry, magy;
+    char accy_str[10], gyry_str[10], magy_str[10];
+    long double accz, gyrz, magz;
+    char accz_str[10], gyrz_str[10], magz_str[10];
+
+    //disptitle("IM TEST");
+    sendtocom0("********************\n");
+    sendtocom0("IMU TEST BEGIN\n");
+    sendtocom0("********************\n\n");
+
+    for (i=0; i<6; i++) sendtocom0(" ");
+    sendtocom0("Retriving IMU Data (3 Times)\n\n");
+
+    for (j=0; j<100, k<3; j++) {
+
+    	for (i=0; i<20000000; i++)
+    		;
+
+    	ret = get_im_data(buf);
+
+    	//printf("ret is %d\n", ret);
+
+    	if (ret == 0)
+    		continue;
+
+    	k++;
+
+        //lineBegin();
+        for (i=0; i<6; i++) sendtocom0(" ");
+
+        accx = get_im_accx(buf);
+        gyrx = get_im_gyrx(buf);
+        magx = get_im_magx(buf);
+        sprintf(accx_str, (accx >= 0) ? "+%.3Lf" : "%.3Lf", accx);
+        sprintf(gyrx_str, (gyrx >= 0) ? "+%.3Lf" : "%.3Lf", gyrx);
+        sprintf(magx_str, (magx >= 0) ? "+%.3Lf" : "%.3Lf", magx);
+		/*
+        printf("AccX: ");
+        printf("%s", accx_str);
+        printf(" ");
+
+        printf("GyrX: ");
+        printf("%s", gyrx_str);
+        printf(" ");
+
+        printf("MagX: ");
+        printf("%s", magx_str);
+        printf(" ");
+		*/
+
+        sendtocom0("AccX: ");
+        sendtocom0(accx_str);
+        sendtocom0("\t");
+
+        sendtocom0("GyrX: ");
+        sendtocom0(gyrx_str);
+        sendtocom0("\t");
+
+        sendtocom0("MagX: ");
+        sendtocom0(magx_str);
+        sendtocom0("\t");
+        sendtocom0("\n");
+        //lineEnd(6 + strlen(accx_str) + 1 + 6 + strlen(gyrx_str) + 1 + 6 + strlen(magx_str) + 1 + 6);
+
+        //lineBegin();
+        for (i=0; i<6; i++) sendtocom0(" ");
+
+        accy = get_im_accy(buf);
+        gyry = get_im_gyry(buf);
+        magy = get_im_magy(buf);
+        sprintf(accy_str, (accy >= 0) ? "+%.3Lf" : "%.3Lf", accy);
+        sprintf(gyry_str, (gyry >= 0) ? "+%.3Lf" : "%.3Lf", gyry);
+        sprintf(magy_str, (magy >= 0) ? "+%.3Lf" : "%.3Lf", magy);
+
+		/*
+        printf("AccY: ");
+        printf("%s", accy_str);
+        printf(" ");
+
+        printf("GyrY: ");
+        printf("%s", gyry_str);
+        printf(" ");
+
+        printf("MagY: ");
+        printf("%s", magy_str);
+        printf(" ");
+		*/
+
+        sendtocom0("AccY: ");
+        sendtocom0(accy_str);
+        sendtocom0("\t");
+
+        sendtocom0("GyrY: ");
+        sendtocom0(gyry_str);
+        sendtocom0("\t");
+
+        sendtocom0("MagY: ");
+        sendtocom0(magy_str);
+        sendtocom0("\t");
+        sendtocom0("\n");
+        //lineEnd(6 + strlen(accy_str) + 1 + 6 + strlen(gyry_str) + 1 + 6 + strlen(magy_str) + 1 + 6);
+
+        //lineBegin();
+        for (i=0; i<6; i++) sendtocom0(" ");
+
+        accz = get_im_accz(buf);
+        gyrz = get_im_gyrz(buf);
+        magz = get_im_magz(buf);
+        sprintf(accz_str, (accz >= 0) ? "+%.3Lf" : "%.3Lf", accz);
+        sprintf(gyrz_str, (gyrz >= 0) ? "+%.3Lf" : "%.3Lf", gyrz);
+        sprintf(magz_str, (magz >= 0) ? "+%.3Lf" : "%.3Lf", magz);
+
+		/*
+        printf("AccZ: ");
+        printf("%s", accz_str);
+        printf(" ");
+
+        printf("GyrZ: ");
+        printf("%s", gyrz_str);
+        printf(" ");
+
+        printf("MagZ: ");
+        printf("%s", magz_str);
+        printf(" ");
+		*/
+
+        sendtocom0("AccZ: ");
+        sendtocom0(accz_str);
+        sendtocom0("\t");
+
+        sendtocom0("GyrZ: ");
+        sendtocom0(gyrz_str);
+        sendtocom0("\t");
+
+        sendtocom0("MagZ: ");
+        sendtocom0(magz_str);
+        sendtocom0("\t");
+        sendtocom0("\n\n");
+        //lineEnd(6 + strlen(accz_str) + 1 + 6 + strlen(gyrz_str) + 1 + 6 + strlen(magz_str) + 1 + 6);
+        //disp();
+    }
+        sendtocom0("********************\n");
+        sendtocom0("TEST END\n");
+        sendtocom0("********************\n\n");
+
+        //disp();
+        //dispfoot();
+
+}
+
+
