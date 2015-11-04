@@ -26,6 +26,6 @@
 int Flash_Erase();
 void Flash_Readm(Uint32 addr,Uint16 *ptr,Uint32 length);
 unsigned char Flash_Reads(Uint32 addr);
-void Flash_Writem(Uint32 addr,Uint32 *ptr,Uint32 length);
+void Flash_Writem(Uint32 addr, Uint32* ptr, Uint32 length);
 void Flash_Writes(unsigned long addr,unsigned long data);
 void Flash_Chip_Erase();

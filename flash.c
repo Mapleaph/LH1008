@@ -58,35 +58,49 @@ void Flash_Chip_Erase()
 /********************************************************************************\
 *  Write a single data. *\
 ********************************************************************************/
-void Flash_Writes(unsigned long addr,unsigned long data)
+void Flash_Writes(unsigned long addr, unsigned long data)
 {
 	unsigned long wrchar;
 	unsigned long realaddr;
 	unsigned long i;
+	unsigned long tmp, tmp2;
 	
 	wrchar = data & 0xffffffff;
 	realaddr = addr & 0xffffffff;
-	write32(FLASH_BASE_ADDR+0x555 * 4,0x00aa00aa);
-	write32(FLASH_BASE_ADDR+0x2aa * 4,0x00550055);
-	write32(FLASH_BASE_ADDR+0x555 * 4,0x00a000A0);
+	write32(FLASH_BASE_ADDR+0x555*4, 0x00aa00aa);
+	write32(FLASH_BASE_ADDR+0x2aa*4, 0x00550055);
+	write32(FLASH_BASE_ADDR+0x555*4, 0x00a000a0);
 	write32(realaddr, wrchar);
-	i=1000;
-	while(i>0)
+
+	i = 20000;
+	while (i>0)
 	{i--;}
-//	while((( *( (unsigned char *)(realaddr) ) )&0xffffffff) != wrchar);
 	
+/*	do {
+
+		tmp = (*((unsigned long*)(realaddr))) & 0xffffffff;
+		tmp2 = (*((unsigned long*)(realaddr+4))) & 0xffffffff;
+		for (i=0; i<200000; i++)
+			;
+
+	} while (tmp != wrchar); */
+
+	//while((( *( (unsigned char *)(realaddr) ) )&0xffffffff) != wrchar);
+
 }
 
 
 /********************************************************************************\
 \* Write the certain length data. *\
 \********************************************************************************/
-void Flash_Writem(Uint32 addr,Uint32 *ptr,Uint32 length)
+void Flash_Writem(Uint32 addr, Uint32 *ptr, Uint32 length)
 {
 	Uint32 i;
-	for(i=0; i<=length; i++)
-	{
-		Flash_Writes(addr+i*4,*(ptr+i));
+
+	for (i=0; i<=length; i++) {
+
+		Flash_Writes(addr+i*4, *(ptr+i));
+
 	}
 }
 
