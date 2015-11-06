@@ -1,0 +1,99 @@
+/* 
+ * This GEL file (DSP621x_671x.gel) provides example code on how to 
+ * reset the C6x DSP and initialize the External Memory Interface.
+ *
+ * You will have to edit settings in emif_init() to your own 
+ * specifications as the example is applicable to the C6711 DSK.
+ *
+ * This file is has minimal functionality and is designed to be used
+ * as a starting point for custom GEL files.
+ *
+ * Refer to CCS Help for detailed information on GEL commands.
+ *
+ */
+
+/*
+ * The StartUp() function is called every time you start Code Composer.
+ * It should only include functions that do not "touch the hardware" -
+ * Hardware initialization should be invoked from the OnTargetConnect() 
+ * function or the GEL menu.
+ */ 
+StartUp()
+{
+
+	/* setMemoryMap;  
+	this should be a function to initialize the mem map based
+	on the particular hardware that is used
+	*/
+	GEL_Reset();
+	GEL_TextOut("Gel Startup Complete.\n");
+}
+
+/*--------------------------------------------------------------*/
+/* OnTargetConnect() -- this function is called after a target  */
+/* connect.                                                     */
+/*--------------------------------------------------------------*/
+OnTargetConnect()
+{
+	/* 	GEL_Reset is used to deal with the worst case senario of
+		unknown target state.  If for some reason a reset is not
+		desired upon target connection, GEL_Reset may be removed 
+		and replaced with something "less brutal" like a cache
+		initialization function
+	 */
+	GEL_Reset();
+	GEL_TextOut("Gel TargetConnect Complete.\n");
+}
+
+OnReset(int nErrorCode){
+    emif_init();
+    GEL_TextOut("Gel Reset Complete.\n");
+}
+
+/*
+ * OnPreFileLoaded()
+ * This function is called automatically when the 'Load Program'
+ * Menu item is selected  .....
+ */
+OnPreFileLoaded()
+{
+	CleanCache();
+}
+
+/*
+ * CleanCache()
+ * Actually Invalidate L1D, L1P, and L2 
+ */
+CleanCache()   {
+	*(int *)0x01845004 = 1;
+	}  
+
+emif_init()
+{
+/*---------------------------------------------------------------------------*/
+/* EMIF REGISTERS */
+/*---------------------------------------------------------------------------*/
+
+	#define EMIF_GCTL       0x01800000
+	#define EMIF_CE1        0x01800004
+	#define EMIF_CE0        0x01800008
+	#define EMIF_CE2        0x01800010
+	#define EMIF_CE3        0x01800014
+	#define EMIF_SDRAMCTL   0x01800018
+	#define EMIF_SDRAMTIMING  0x0180001C
+  	#define EMIF_SDRAMEXT     0x01800020
+
+/*---------------------------------------------------------------------------*/
+/* EMIF REGISTER VALUES - these should be modified to match TARGET hardware  */
+/*---------------------------------------------------------------------------*/
+
+    *(int *)EMIF_GCTL = 0x00000078;/* EMIF global control register     enable clk1 clk2    */
+    *(int *)EMIF_CE1 = 0x02208822; /* 0x02208802 0xc276ff06 , CE1 - 8-bit asynch access after boot*/
+    *(int *)EMIF_CE0 = 0xffffff9f; /* CE0 - SDRAM                          */
+    *(int *)EMIF_CE2 = 0x2fe2bf22; // 2fe2bf22 22a28a22
+    *(int *)EMIF_CE3 = 0x2fe2bf22; 
+    *(int *)EMIF_SDRAMCTL = 0x6344a000; /* SDRAM control register (100 MHz)*/
+    *(int *)EMIF_SDRAMTIMING = 0x00000578; /* SDRAM Timing register        */
+    
+}
+

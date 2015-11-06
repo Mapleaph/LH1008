@@ -56,7 +56,7 @@ int main(void)
 
 		//Flash_Writem(FLASH_BASE_ADDR,0,0x0);
 		Flash_Writem(FLASH_BASE_ADDR, 0x000, 0x48);
-		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x5303);
+		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x55af);
 		//Flash_Writem(FLASH_BASE_ADDR + 0x400,0x400,0xe0d2);
 		//Flash_Writem(FLASH_BASE_ADDR + 0x400,0x400,0x567F);
 		//Flash_Writem(FLASH_BASE_ADDR + 0x400,0x400,0x15a30);
