@@ -24,7 +24,7 @@ void initmodules();
 
 int main(void)
 {                               
-	const int flash_burn = 0; 
+	const int flash_burn = 0;
 
 	int testcpu;
 
@@ -43,27 +43,22 @@ int main(void)
 
 	if (testcpu == 0x11DCFFFF) {
 
-		//printf("\n---------LH_1008 Start---------\n");
 		sendtocom0("Satellite Navigation System Start\n\n");
 
 	}
 
 	//Test Flash
 	if (flash_burn == 1) {
-		//Flash_Erase();
+
 		Flash_Chip_Erase();
 		printf("Flash Erase Complete\n");
 
-		//Flash_Writem(FLASH_BASE_ADDR,0,0x0);
 		Flash_Writem(FLASH_BASE_ADDR, 0x000, 0x48);
-		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x55af);
-		//Flash_Writem(FLASH_BASE_ADDR + 0x400,0x400,0xe0d2);
-		//Flash_Writem(FLASH_BASE_ADDR + 0x400,0x400,0x567F);
-		//Flash_Writem(FLASH_BASE_ADDR + 0x400,0x400,0x15a30);
+		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x5925);
+		printf("Flash Write Complete\n");
 	}
 
 	test_entry();
-
 
 /*
 	printf("TEST SDRAMing... Write 0x00000000\t\n");
@@ -189,7 +184,10 @@ void initboard()
  * test port: 0xa0051000~0xa005101f
  * GPS port:  0xa0050000~0xa005001f
  * IM port:   0xa0050020~0xa005003f
- *
+ * RS422 COM3: 0xa0050040~0xa005004f
+ * RS422 COM3: 0xa0050060~0xa005006f
+ * RS422 COM3: 0xa0050080~0xa005008f
+ * RS422 COM3: 0xa00500a0~0xa00500af
  */
 
 
@@ -203,11 +201,7 @@ void test_entry()
 	selection = -1;
 	depth = -1;
 
-
-
 	while (1) {
-	
-		//dispmenu();
 
 		sendtocom0("********************\n");
 		sendtocom0("SYSTEM TEST MENU\n");
@@ -222,8 +216,10 @@ void test_entry()
 
 		for (i=0; i<3; i++) sendtocom0(" ");
 		sendtocom0("[3] CAN TEST\n");
-		sendtocom0("\n");
 
+		for (i=0; i<3; i++) sendtocom0(" ");
+		sendtocom0("[4] RS422 TEST\n");
+		sendtocom0("\n");
 
 		depth = *((unsigned char*)0xa0051010);
 
@@ -261,11 +257,9 @@ void test_entry()
 					;
 				break;
 			}
-			//printf("selection 0x%x depth 0x%x\n", selection, depth);
 
 		} while (selection == 0 || depth == 0);
 
-		//printf("selection is %x\n", selection);
 
 		for (j=0; j<20000000; j++)
 			;
@@ -279,6 +273,9 @@ void test_entry()
 			break;
 		case 3:
 			test_can();
+			break;
+		case 4:
+			test_com();
 			break;
 		}
 	}

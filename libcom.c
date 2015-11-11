@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include "LH_1008.h"
+#include "libcom.h"
+
 void sendtocom(unsigned long addr, unsigned char *buf, int size)
 {
     unsigned char fifosize;
@@ -30,7 +37,7 @@ void sendtocom0(unsigned char* buf)
 
 }
 
-unsigned int recfromcom(unsigned long addr, unsigned int read_data[])
+unsigned int recfromcom(unsigned long addr, unsigned char read_data[])
 {
     unsigned int fifosize;
     int i, j;
@@ -57,24 +64,97 @@ unsigned int recfromcom(unsigned long addr, unsigned int read_data[])
 	}
 }
 
+void set_loop_mode()
+{
+	int i;
+
+	*((unsigned char*)(0xa0050040+0x08)) = 0x18; // COM3 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa0050060+0x08)) = 0x18; // COM4 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa0050080+0x08)) = 0x18; // COM5 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa00500a0+0x08)) = 0x18; // COM6 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+}
+
+void set_normal_mode()
+{
+	int i;
+
+	*((unsigned char*)(0xa0050040+0x08)) = 0x00; // COM3 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa0050060+0x08)) = 0x00; // COM4 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa0050080+0x08)) = 0x00; // COM5 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa00500a0+0x08)) = 0x00; // COM6 MCR to loop mode
+
+	for (i=0; i<10000; i++)
+		;
+
+}
+
 void com_init()
 {
 	int i;
 
-	*((unsigned char*)(0xa0051000+0x0C)) = 0x24;
+	*((unsigned char*)(0xa0051000+0x0c)) = 0x24; // DEBUG
 
 	for (i=0; i<10000; i++)
 		;
 
-	*((unsigned char*)(0xa0050000+0x0C)) = 0x24;
+	*((unsigned char*)(0xa0050000+0x0c)) = 0x24; // GPS
 
 	for (i=0; i<10000; i++)
 		;
 
-	*((unsigned char*)(0xa0050020+0x0C)) = 0x24;
+	*((unsigned char*)(0xa0050020+0x0c)) = 0x24; // IM
 
 	for (i=0; i<10000; i++)
 		;
+
+	*((unsigned char*)(0xa0050040+0x0c)) = 0x24; // 422-COM3
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa0050060+0x0c)) = 0x24; // 422-COM4
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa0050080+0x0c)) = 0x24; // 422-COM5
+
+	for (i=0; i<10000; i++)
+		;
+
+	*((unsigned char*)(0xa00500a0+0x0c)) = 0x24; // 422-COM6
+
+	for (i=0; i<10000; i++)
+		;
+
 }
 
 /*
@@ -82,44 +162,121 @@ void com_init()
  */
 void test_com()
 {
-/*    char quit[1];
-    int i;
 
-    do {
-        disptitle("COM TEST");
+	int i;
 
-        lineBegin();
-        for (i=0; i<6; i++) printf(" ");
-        printf("COM1-RS422    COM2-RS422   COM3-RS485");
-        lineEnd(43);
+	unsigned long com3Addr = 0xa0050040;
+	unsigned long com4Addr = 0xa0050060;
+	unsigned long com5Addr = 0xa0050080;
+	unsigned long com6Addr = 0xa00500a0;
 
-        disp();
+	set_loop_mode();
 
-        lineBegin();
-        for (i=0; i<6; i++) printf(" ");
-        printf("1-COM_SEND    2-COM_RECE   3-COM_LOOP   0-quit");
-        lineEnd(52);
+	sendtocom0("*************************\n");
+	sendtocom0("RS422 LOOPBACK TEST BEGIN\n");
+	sendtocom0("*************************\n\n");
 
-        disp();
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("COM3 Test (Twice)\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n\n");
 
-        while ((gets(quit)) == 0);
-        switch (quit[0]) {
+	test_com_wf(com3Addr);
 
-        case '1':
-            //com_send();
-            break;
-        case '2':
-            //com_receive();
-            break;
-        case '3':
-            //com_loop();
-            break;
-        default:;
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("COM4 Test (Twice)\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n\n");
 
-        }
+	test_com_wf(com4Addr);
 
-    } while (quit[0] != '0');
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("COM5 Test (Twice)\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n\n");
 
-    dispfoot();
-	*/
+	test_com_wf(com5Addr);
+
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("COM6 Test (Twice)\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************\n\n");
+
+	test_com_wf(com6Addr);
+
+	set_normal_mode();
+
+	sendtocom0("\n\n\n");
+	sendtocom0("********************\n");
+	sendtocom0("TEST END\n");
+	sendtocom0("********************\n\n");
+
+}
+
+void test_com_wf(unsigned long comAddr)
+{
+	unsigned char sendbuf[5], recvbuf[1];
+	unsigned char sendstr[5];
+	unsigned char recvstr[11];
+
+	int i, j, k;
+
+	int ret;
+
+	sendbuf[0] = 0x01;
+	sendbuf[1] = 0x02;
+	sendbuf[2] = 0x03;
+	sendbuf[3] = 0x04;
+	sendbuf[4] = 0x05;
+
+	for (i=0; i<2; i++) {
+
+		for (j=0; j<6; j++) sendtocom0(" ");
+
+		sendtocom0("Send: ");
+
+		sendtocom(comAddr, sendbuf, 5);
+
+		for (k=0; k<5; k++) {
+
+			sprintf(sendstr, "0x%x", sendbuf[k]);
+			sendtocom0(sendstr);
+			sendtocom0(" ");
+			sendbuf[k]++;
+
+		}
+
+		sendtocom0("\n");
+
+		for (j=0; j<6; j++) sendtocom0(" ");
+		sendtocom0("Recv: ");
+
+		for (k=0; k<5; k++) {
+
+			if (recfromcom(comAddr, recvbuf) != 0) {
+
+				sprintf(recvstr, "0x%x", recvbuf[0]);
+
+				sendtocom0(recvstr);
+				sendtocom0(" ");
+
+			}
+		}
+
+
+		sendtocom0("\n");
+
+		for (j=0; j<10000000; j++) // delay for about 1s
+			;
+
+		sendtocom0("\n");
+	}
 }
