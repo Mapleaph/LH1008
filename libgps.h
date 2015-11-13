@@ -1,7 +1,6 @@
 #ifndef __LIBGPS_H__
 #define __LIBGPS_H__
 
-
 int get_gps_data(unsigned char readbuf[]);
 char* get_gps_date(char* gps_data);
 char* get_gps_time(char* gps_data);

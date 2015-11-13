@@ -5,7 +5,7 @@
 #include "LH_1008.h"
 #include "libcom.h"
 
-void sendtocom(unsigned long addr, unsigned char *buf, int size)
+void sendtocom(unsigned long addr, unsigned char* buf, int size)
 {
     unsigned char fifosize;
     int i, j;
@@ -33,7 +33,7 @@ void sendtocom(unsigned long addr, unsigned char *buf, int size)
 void sendtocom0(unsigned char* buf)
 {
 	
-	sendtocom(0xa0051000, buf, strlen(buf));
+	sendtocom(DBGADDR, buf, strlen(buf));
 
 }
 
@@ -120,17 +120,17 @@ void com_init()
 {
 	int i;
 
-	*((unsigned char*)(0xa0051000+0x0c)) = 0x24; // DEBUG
+	*((unsigned char*)(0xa0051000+0x0c)) = 0x24; // 232-COM7
 
 	for (i=0; i<10000; i++)
 		;
 
-	*((unsigned char*)(0xa0050000+0x0c)) = 0x24; // GPS
+	*((unsigned char*)(0xa0050000+0x0c)) = 0x24; // 232-COM1
 
 	for (i=0; i<10000; i++)
 		;
 
-	*((unsigned char*)(0xa0050020+0x0c)) = 0x24; // IM
+	*((unsigned char*)(0xa0050020+0x0c)) = 0x24; // 232-COM2
 
 	for (i=0; i<10000; i++)
 		;
@@ -157,24 +157,17 @@ void com_init()
 
 }
 
-/*
- *  TODO
- */
 void test_com()
 {
 
 	int i;
-
-	unsigned long com3Addr = 0xa0050040;
-	unsigned long com4Addr = 0xa0050060;
-	unsigned long com5Addr = 0xa0050080;
-	unsigned long com6Addr = 0xa00500a0;
 
 	set_loop_mode();
 
 	sendtocom0("*************************\n");
 	sendtocom0("RS422 LOOPBACK TEST BEGIN\n");
 	sendtocom0("*************************\n\n");
+
 
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n");
@@ -183,7 +176,7 @@ void test_com()
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n\n");
 
-	test_com_wf(com3Addr);
+	test_com_wf(COM3ADDR);
 
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n");
@@ -192,7 +185,7 @@ void test_com()
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n\n");
 
-	test_com_wf(com4Addr);
+	test_com_wf(COM4ADDR);
 
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n");
@@ -201,7 +194,7 @@ void test_com()
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n\n");
 
-	test_com_wf(com5Addr);
+	test_com_wf(COM5ADDR);
 
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n");
@@ -210,7 +203,7 @@ void test_com()
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("**********************\n\n");
 
-	test_com_wf(com6Addr);
+	test_com_wf(COM6ADDR);
 
 	set_normal_mode();
 

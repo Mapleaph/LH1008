@@ -54,7 +54,7 @@ int main(void)
 		printf("Flash Erase Complete\n");
 
 		Flash_Writem(FLASH_BASE_ADDR, 0x000, 0x48);
-		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x5925);
+		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x5905);
 		printf("Flash Write Complete\n");
 	}
 
@@ -181,13 +181,13 @@ void initboard()
 
 
 /*
- * test port: 0xa0051000~0xa005101f
- * GPS port:  0xa0050000~0xa005001f
- * IM port:   0xa0050020~0xa005003f
- * RS422 COM3: 0xa0050040~0xa005004f
- * RS422 COM3: 0xa0050060~0xa005006f
- * RS422 COM3: 0xa0050080~0xa005008f
- * RS422 COM3: 0xa00500a0~0xa00500af
+ * RS232 COM7: 0xa0051000~0xa005101f
+ * RS232 COM1: 0xa0050000~0xa005001f
+ * RS232 COM2: 0xa0050020~0xa005003f
+ * RS422 COM3: 0xa0050040~0xa005005f
+ * RS422 COM4: 0xa0050060~0xa005007f
+ * RS422 COM5: 0xa0050080~0xa005009f
+ * RS422 COM6: 0xa00500a0~0xa00500bf
  */
 
 
@@ -221,7 +221,7 @@ void test_entry()
 		sendtocom0("[4] RS422 TEST\n");
 		sendtocom0("\n");
 
-		depth = *((unsigned char*)0xa0051010);
+		depth = *((unsigned char*)DBGADDR+0x10);
 
 		for (j=0; j<10; j++)
 			;
@@ -230,7 +230,7 @@ void test_entry()
 
 			for (i=0; i<depth; i++) {
 
-				readout = *((unsigned char*)0xa0051000);
+				readout = *((unsigned char*)DBGADDR);
 
 				for (j=0; j<10; j++)
 					;
@@ -246,13 +246,13 @@ void test_entry()
 	
 		do {
 
-			depth = *((unsigned char*)0xa0051010);
+			depth = *((unsigned char*)DBGADDR+0x10);
 			for (j=0; j<10; j++)
 				;
 
 			if (depth > 0) {
 
-				selection = *((unsigned char*)0xa0051000);
+				selection = *((unsigned char*)DBGADDR);
 				for (j=0; j<10; j++)
 					;
 				break;
@@ -309,7 +309,7 @@ void initmodules()
 	sendtocom0("Done.\n");
 
 
-	im_init();
+	//im_init();
 	sendtocom0("IMU Module...");
 	for (i=0; i<2000000; i++)
 		;

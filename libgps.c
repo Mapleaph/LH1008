@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "libcom.h"
 #include "libgps.h"
 
 /*
@@ -566,7 +567,7 @@ int get_gps_data(unsigned char readbuf[])
 			for (i=0; i<20000; i++)
 				;
 
-			ret = recfromcom(0xa0050000, tmpdata);
+			ret = recfromcom(GPSADDR, tmpdata);
 
 			if (ret == 0)
 				continue;

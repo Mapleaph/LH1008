@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include "LH_1008.h"
+#include "libcom.h"
 #include "libim.h"
 
 void im_init()
@@ -47,7 +48,7 @@ void im_init()
 	buf[4] = 0xF1;
 
 
-	sendtocom(0xa005000, buf, 5);
+	//sendtocom(0xa005000, buf, 5);
 
 	/*
 	*((unsigned char*)(0xa0050020)) = 0xFA;
@@ -121,7 +122,7 @@ int get_im_data(unsigned int readbuf[])
 
 			//tmpdata = read8(0xa0050000);
 
-			ret = recfromcom(0xa0050000, tmpdata);
+			ret = recfromcom(IMADDR, tmpdata);
 
 			if (ret == 0)
 				continue;
