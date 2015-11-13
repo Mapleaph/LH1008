@@ -655,7 +655,7 @@ int get_gps_data(unsigned char readbuf[])
 
 void test_gps()
 {
-    int i, j, k=0;
+    int i, k=0;
     int ret;
     char* longitude[3];
     char* latitude[3];
@@ -668,12 +668,16 @@ void test_gps()
 
     unsigned char gps_data[200];
 
-	sendtocom0("********************\n");
+	sendtocom0("**************\n");
 	sendtocom0("GPS TEST BEGIN\n");
-	sendtocom0("********************\n\n");
+	sendtocom0("**************\n\n");
 
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("Retriving GPS Data (3 Times)\n\n");
+	sendtocom0("*****************************\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("Retrieving GPS Data (3 Times)\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("*****************************\n\n");
 
     for (i=0; i<1000 && k<3; i++) {
 
@@ -773,9 +777,9 @@ void test_gps()
 	//disp();
 	//dispfoot();
 
-    sendtocom0("********************\n");
-	sendtocom0("TEST END\n");
-	sendtocom0("********************\n\n");
+    sendtocom0("************\n");
+	sendtocom0("GPS TEST END\n");
+	sendtocom0("************\n\n");
 
 }
 

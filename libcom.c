@@ -170,47 +170,46 @@ void test_com()
 
 
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n");
+	sendtocom0("*****************\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("COM3 Test (Twice)\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n\n");
+	sendtocom0("*****************\n\n");
 
 	test_com_wf(COM3ADDR);
 
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n");
+	sendtocom0("*****************\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("COM4 Test (Twice)\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n\n");
+	sendtocom0("*****************\n\n");
 
 	test_com_wf(COM4ADDR);
 
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n");
+	sendtocom0("*****************\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("COM5 Test (Twice)\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n\n");
+	sendtocom0("*****************\n\n");
 
 	test_com_wf(COM5ADDR);
 
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n");
+	sendtocom0("*****************\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
 	sendtocom0("COM6 Test (Twice)\n");
 	for (i=0; i<6; i++) sendtocom0(" ");
-	sendtocom0("**********************\n\n");
+	sendtocom0("*****************\n\n");
 
 	test_com_wf(COM6ADDR);
 
 	set_normal_mode();
 
-	sendtocom0("\n\n\n");
-	sendtocom0("********************\n");
-	sendtocom0("TEST END\n");
-	sendtocom0("********************\n\n");
+	sendtocom0("***********************\n");
+	sendtocom0("RS422 LOOPBACK TEST END\n");
+	sendtocom0("***********************\n\n");
 
 }
 

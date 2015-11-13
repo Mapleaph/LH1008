@@ -54,7 +54,7 @@ int main(void)
 		printf("Flash Erase Complete\n");
 
 		Flash_Writem(FLASH_BASE_ADDR, 0x000, 0x48);
-		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x5905);
+		Flash_Writem(FLASH_BASE_ADDR+0x400, (Uint32*)0x400, 0x5b30);
 		printf("Flash Write Complete\n");
 	}
 
@@ -203,22 +203,25 @@ void test_entry()
 
 	while (1) {
 
-		sendtocom0("********************\n");
+		sendtocom0("****************\n");
 		sendtocom0("SYSTEM TEST MENU\n");
-		sendtocom0("********************\n\n");
+		sendtocom0("****************\n\n");
 
 
 		for (i=0; i<3; i++) sendtocom0(" ");
-		sendtocom0("[1] GPS TEST\n");
+		sendtocom0("[01]   GPS TEST\n");
 
 		for (i=0; i<3; i++) sendtocom0(" ");
-		sendtocom0("[2] IMU TEST\n");
+		sendtocom0("[02]   IMU TEST\n");
 
 		for (i=0; i<3; i++) sendtocom0(" ");
-		sendtocom0("[3] CAN TEST\n");
+		sendtocom0("[03]   CAN TEST\n");
 
 		for (i=0; i<3; i++) sendtocom0(" ");
-		sendtocom0("[4] RS422 TEST\n");
+		sendtocom0("[04] RS422 TEST\n");
+
+		for (i=0; i<3; i++) sendtocom0(" ");
+		sendtocom0("[05]   EMV TEST\n");
 		sendtocom0("\n");
 
 		depth = *((unsigned char*)DBGADDR+0x10);
@@ -276,6 +279,9 @@ void test_entry()
 			break;
 		case 4:
 			test_com();
+			break;
+		case 5:
+			test_EMV();
 			break;
 		}
 	}

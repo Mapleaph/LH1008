@@ -230,18 +230,21 @@ void test_can()
 	sendbuf[9] = 0x07;
 	sendbuf[10] = 0x08;
 
-	sendtocom0("********************\n");
+	sendtocom0("**************\n");
 	sendtocom0("CAN TEST BEGIN\n");
-	sendtocom0("********************\n\n");
+	sendtocom0("**************\n\n");
 
 
 	//disptitle("CAN TEST");
 	//disp();
 
 	//lineBegin();
-	for (i=0; i<6; i++) sendtocom0(" ");
-
-	sendtocom0("CAN1 to CAN2 Test (Five Times)\n\n");
+	for (j=0; j<6; j++) sendtocom0(" ");
+	sendtocom0("******************************\n");
+	for (j=0; j<6; j++) sendtocom0(" ");
+	sendtocom0("CAN1 to CAN2 Test (Five Times)\n");
+	for (j=0; j<6; j++) sendtocom0(" ");
+	sendtocom0("******************************\n\n");
 
 	//lineEnd(30);
 
@@ -347,7 +350,11 @@ void test_can()
 
 	sendtocom0("\n\n\n");
 	for (j=0; j<6; j++) sendtocom0(" ");
-	sendtocom0("CAN2 to CAN1 Test (Five Times)\n\n");
+	sendtocom0("******************************\n");
+	for (j=0; j<6; j++) sendtocom0(" ");
+	sendtocom0("CAN2 to CAN1 Test (Five Times)\n");
+	for (j=0; j<6; j++) sendtocom0(" ");
+	sendtocom0("******************************\n\n");
 
 	for (i=0; i<5; i++) {
 
@@ -441,8 +448,8 @@ void test_can()
 
 	sendtocom0("\n\n");
 
-	sendtocom0("********************\n");
-	sendtocom0("TEST END\n");
-	sendtocom0("********************\n\n");
+	sendtocom0("************\n");
+	sendtocom0("CAN TEST END\n");
+	sendtocom0("************\n\n");
 
 }

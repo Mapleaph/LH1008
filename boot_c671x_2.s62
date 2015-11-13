@@ -196,7 +196,7 @@ copyTable:
 			; ram start (run) address
 	 
     		;; .text
-			.word 0x16414      ;_text_size
+			.word 0x16cc0      ;_text_size
     		.word 0x90000400   ;_text_ld_start
     		.word 0x00000400   ;_text_rn_start
 		      		

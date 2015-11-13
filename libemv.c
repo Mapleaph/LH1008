@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 #include "LH_1008.h"
 #include "libemv.h"
 
@@ -161,22 +165,49 @@ void test_EMV()
 {
 
 	int i, j;
+	char str[3];
+
+	sendtocom0("**************\n");
+	sendtocom0("EMV TEST BEGIN\n");
+	sendtocom0("**************\n\n");
+
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************************\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("Open-Close One by One from 1 to 12\n");
+	for (i=0; i<6; i++) sendtocom0(" ");
+	sendtocom0("**********************************\n\n");
 
 	// open-close one by one
 
 	for (i=1; i<=12; i++) {
+
+		for (j=0; j<6; j++) sendtocom0(" ");
+		sendtocom0(" open valve ");
+		sprintf(str, "%d", i);
+		sendtocom0(str);
+		sendtocom0("...\n");
 
 		open_EMV(i);
 
 		for (j=0; j<40000000; j++)
 			;
 
+		for (j=0; j<6; j++) sendtocom0(" ");
+		sendtocom0("close valve ");
+		sprintf(str, "%d", i);
+		sendtocom0(str);
+		sendtocom0("...\n\n");
 		close_EMV(i);
 
 		for (j=0; j<40000000; j++)
 			;
 
 	}
+
+	sendtocom0("************\n");
+	sendtocom0("EMV TEST END\n");
+	sendtocom0("************\n\n");
 
 	close_EMV_All();
 

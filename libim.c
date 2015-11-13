@@ -917,12 +917,16 @@ void test_im()
     char accz_str[10], gyrz_str[10], magz_str[10];
 
     //disptitle("IM TEST");
-    sendtocom0("********************\n");
+    sendtocom0("**************\n");
     sendtocom0("IMU TEST BEGIN\n");
-    sendtocom0("********************\n\n");
+    sendtocom0("**************\n\n");
 
     for (i=0; i<6; i++) sendtocom0(" ");
-    sendtocom0("Retriving IMU Data (3 Times)\n\n");
+    sendtocom0("*****************************\n");
+    for (i=0; i<6; i++) sendtocom0(" ");
+    sendtocom0("Retrieving IMU Data (3 Times)\n");
+    for (i=0; i<6; i++) sendtocom0(" ");
+    sendtocom0("*****************************\n\n");
 
     for (j=0; j<100, k<3; j++) {
 
@@ -1052,9 +1056,9 @@ void test_im()
         //lineEnd(6 + strlen(accz_str) + 1 + 6 + strlen(gyrz_str) + 1 + 6 + strlen(magz_str) + 1 + 6);
         //disp();
     }
-        sendtocom0("********************\n");
-        sendtocom0("TEST END\n");
-        sendtocom0("********************\n\n");
+        sendtocom0("************\n");
+        sendtocom0("IMU TEST END\n");
+        sendtocom0("************\n\n");
 
         //disp();
         //dispfoot();
